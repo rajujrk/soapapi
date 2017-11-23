@@ -1,6 +1,10 @@
 # soapapi
 API for Consume SOAP Services 
 
+# Configure your SOAP service in separate class like sample/ServiceManagerImpl.java
+
+# Consume the SOAP Service configured like in sample/Test.java
+
 # POM dependencies
 
 		<!-- https://mvnrepository.com/artifact/org.apache.axis2/axis2-jaxws -->
