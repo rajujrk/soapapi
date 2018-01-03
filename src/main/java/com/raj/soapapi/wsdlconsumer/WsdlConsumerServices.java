@@ -82,18 +82,9 @@ public class WsdlConsumerServices implements ConsumerServices {
 		XMLStreamReader streamReader = inputFactory.createXMLStreamReader(new StringReader(response.toString()));
 
 		if (response.toString().toLowerCase().indexOf(namespaceModule.getRecordDelimeter()) == -1) {
-			namespaceModule.setRecordDelimeter("results");
+			return alList;
 		}
-		/*
-		 * System.out.println(streamReader.nextTag()); // Advance to //
-		 * "soap:Envelope" element System.out.println(streamReader.nextTag());
-		 * // Advance to "soap:Body" // element
-		 * System.out.println(streamReader.nextTag()); // Advance to //
-		 * "ns2:rfqHeaderImportResponse" // element
-		 * System.out.println(streamReader.nextTag()); // Advance to "return" //
-		 * element System.out.println(streamReader.nextTag()); // Advance to
-		 * "return" // element
-		 */ HashMap<String, String> hmElements = new HashMap<String, String>();
+		HashMap<String, String> hmElements = new HashMap<String, String>();
 
 		Boolean blFlg = new Boolean(true);
 		while (streamReader.hasNext()) {
@@ -107,12 +98,9 @@ public class WsdlConsumerServices implements ConsumerServices {
 					blFlg = false;
 				}
 				if (strLocalName.trim().toLowerCase().equals(namespaceModule.getRecordDelimeter())) {
-					hmElements = new HashMap<String, String>();
-
+					hmElements = new HashMap<String, String>();					
 				} else {
 					hmElements.put(strLocalName, streamReader.getElementText());
-					// System.out.println(strLocalName + " : " +
-					// streamReader.getElementText());
 				}
 			}
 			if (streamReader.isEndElement()) {
@@ -123,8 +111,7 @@ public class WsdlConsumerServices implements ConsumerServices {
 			}
 			streamReader.next();
 		}
-		// alList.add(hmElements);
-		// System.out.println(alList.size());
+		streamReader.close();
 
 		return alList;
 
